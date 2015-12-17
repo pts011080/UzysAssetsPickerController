@@ -58,7 +58,7 @@ static CGFloat thumnailLength;
 - (void)applyData:(ALAsset *)asset
 {
     self.asset  = asset;
-    self.image  = [UIImage imageWithCGImage:asset.thumbnail];
+    self.image  = [UIImage imageWithCGImage:asset.aspectRatioThumbnail]; //get high resolution thumbnail
     self.type   = [asset valueForProperty:ALAssetPropertyType];
     self.title  = [UzysAssetsViewCell getTimeStringOfTimeInterval:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]];
 }
@@ -99,7 +99,7 @@ static CGFloat thumnailLength;
 - (void)drawRect:(CGRect)rect
 {
     // Image
-    [self.image drawInRect:CGRectMake(-.5f, -1.0f, thumnailLength+1.5f, thumnailLength+1.0f)];
+    [self imageToDraw:self.image drawInRect:CGRectMake(-.5f, -1.0f, thumnailLength+1.5f, thumnailLength+1.0f)];
     
     // Video title
     if ([self.type isEqual:ALAssetTypeVideo])
@@ -176,5 +176,28 @@ static CGFloat thumnailLength;
     return retTimeInterval;
 }
 
+//Credit: From Stack overflow -- Haider http://stackoverflow.com/a/15917882 and --Frank Schmitt http://stackoverflow.com/a/1703210
+- (void)imageToDraw:(UIImage*)imageToDraw drawInRect:(CGRect)rect{
+
+    CGSize imageSize = imageToDraw.size;
+    CGSize viewSize = rect.size; // size in which you want to draw
+    
+    float hfactor = imageSize.width / viewSize.width;
+    float vfactor = imageSize.height / viewSize.height;
+    
+    float factor = fmin(hfactor, vfactor); //fmin
+    
+    // Divide the size by the greater of the vertical or horizontal shrinkage factor
+    float newWidth = imageSize.width / factor;
+    float newHeight = imageSize.height / factor;
+    
+    // Then figure out if you need to offset it to center vertically or horizontally
+    float leftOffset = (viewSize.width - newWidth) / 2;
+    float topOffset = (viewSize.height - newHeight) / 2;
+    
+    CGRect newRect = CGRectMake(leftOffset,topOffset, newWidth, newHeight);
+    [imageToDraw drawInRect:newRect];
+
+}
 
 @end
