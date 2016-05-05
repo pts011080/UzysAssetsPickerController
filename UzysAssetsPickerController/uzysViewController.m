@@ -98,8 +98,9 @@
     picker.delegate = self;
     if([sender isEqual:self.btnImage])
     {
+        picker.reservedNumber = 10;
         picker.maximumNumberOfSelectionVideo = 0;
-        picker.maximumNumberOfSelectionPhoto = 3;
+        picker.maximumNumberOfSelectionPhoto = 20;
     }
     else if([sender isEqual:self.btnVideo])
     {

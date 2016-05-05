@@ -417,13 +417,13 @@
 - (void)reloadData
 {
     [self.collectionView reloadData];
-    [self.btnDone setTitle:[NSString stringWithFormat:@"%lu",(unsigned long)self.collectionView.indexPathsForSelectedItems
-                            .count] forState:UIControlStateNormal];
+    [self.btnDone setTitle:[NSString stringWithFormat:@"%lu",(unsigned long)(self.collectionView.indexPathsForSelectedItems
+                            .count+self.reservedNumber)] forState:UIControlStateNormal];
     [self showNoAssetsIfNeeded];
 }
 - (void)setAssetsCountWithSelectedIndexPaths:(NSArray *)indexPaths
 {
-    [self.btnDone setTitle:[NSString stringWithFormat:@"%lu",(unsigned long)indexPaths.count] forState:UIControlStateNormal];
+    [self.btnDone setTitle:[NSString stringWithFormat:@"%lu",(unsigned long)(indexPaths.count+self.reservedNumber)] forState:UIControlStateNormal];
 }
 
 #pragma mark - Asset Exception View
@@ -629,7 +629,7 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    BOOL didExceedMaximumNumberOfSelection = [collectionView indexPathsForSelectedItems].count >= self.maximumNumberOfSelection;
+    BOOL didExceedMaximumNumberOfSelection = [collectionView indexPathsForSelectedItems].count  + self.reservedNumber >= self.maximumNumberOfSelection;
     if (didExceedMaximumNumberOfSelection && self.delegate && [self.delegate respondsToSelector:@selector(uzysAssetsPickerControllerDidExceedMaximumNumberOfSelection:)]) {
         [self.delegate uzysAssetsPickerControllerDidExceedMaximumNumberOfSelection:self];
     }
