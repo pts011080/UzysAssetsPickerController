@@ -641,6 +641,11 @@
     ALAsset *selectedAsset = [self.assets objectAtIndex:indexPath.item];
     [self.selectedAssetArray addObject:selectedAsset];
     [self setAssetsCountWithSelectedIndexPaths:collectionView.indexPathsForSelectedItems];
+    
+    BOOL didExceedMaximumNumberOfSelection = [collectionView indexPathsForSelectedItems].count  + self.reservedNumber >= self.maximumNumberOfSelection;
+    if (didExceedMaximumNumberOfSelection && self.delegate && [self.delegate respondsToSelector:@selector(uzysAssetsPickerControllerDidReachedMaximumNumberOfSelection:)]) {
+        [self.delegate uzysAssetsPickerControllerDidReachedMaximumNumberOfSelection:self];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath

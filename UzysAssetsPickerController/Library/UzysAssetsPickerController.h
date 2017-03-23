@@ -16,6 +16,7 @@
 - (void)uzysAssetsPickerController:(UzysAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 @optional
 - (void)uzysAssetsPickerControllerDidCancel:(UzysAssetsPickerController *)picker;
+- (void)uzysAssetsPickerControllerDidReachedMaximumNumberOfSelection:(UzysAssetsPickerController *)picker;
 - (void)uzysAssetsPickerControllerDidExceedMaximumNumberOfSelection:(UzysAssetsPickerController *)picker;
 @end
 
@@ -37,5 +38,7 @@
  *  @param config UzysAppearanceConfig instance.
  */
 + (void)setUpAppearanceConfig:(UzysAppearanceConfig *)config;
+
+- (void)finishPickingAssets;
 
 @end

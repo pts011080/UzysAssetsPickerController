@@ -189,6 +189,16 @@
     
 }
 
+- (void)uzysAssetsPickerControllerDidReachedMaximumNumberOfSelection:(UzysAssetsPickerController *)picker{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                    message:NSLocalizedStringFromTable(@"Reached Maximum Number Of Selection", @"UzysAssetsPickerController", nil)
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    [picker finishPickingAssets];
+}
+
 - (void)uzysAssetsPickerControllerDidExceedMaximumNumberOfSelection:(UzysAssetsPickerController *)picker
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
