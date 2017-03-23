@@ -40,5 +40,5 @@
 + (void)setUpAppearanceConfig:(UzysAppearanceConfig *)config;
 
 - (void)finishPickingAssets;
-
+- (IBAction)btnAction:(id)sender;
 @end
