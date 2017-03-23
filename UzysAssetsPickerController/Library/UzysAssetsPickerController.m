@@ -1037,7 +1037,10 @@
                 [[NSNotificationCenter defaultCenter] addObserver:strongSelf selector:@selector(assetsLibraryUpdated:) name:ALAssetsLibraryChangedNotification object:nil];
             });
             
-            
+            BOOL didExceedMaximumNumberOfSelection = self.selectedAssetArray.count >= self.maximumNumberOfSelection;
+            if (didExceedMaximumNumberOfSelection && self.delegate && [self.delegate respondsToSelector:@selector(uzysAssetsPickerControllerDidReachedMaximumNumberOfSelection:)]) {
+                [self.delegate uzysAssetsPickerControllerDidReachedMaximumNumberOfSelection:self];
+            }
         });
         
     } failureBlock:^(NSError *err){
