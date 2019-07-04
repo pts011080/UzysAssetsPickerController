@@ -64,7 +64,7 @@
 
 - (id)init
 {
-    self = [super initWithNibName:@"UzysAssetsPickerController" bundle:nil];
+    self = [super initWithNibName:@"UzysAssetsPickerController" bundle:[NSBundle mainBundle]];
     if(self)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(assetsLibraryUpdated:) name:ALAssetsLibraryChangedNotification object:nil];
